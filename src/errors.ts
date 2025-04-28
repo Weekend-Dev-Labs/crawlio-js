@@ -12,6 +12,12 @@ export class CrawlspaceRateLimit extends CrawlspaceError {
     }
 }
 
+export class CrawlspaceLimitExceeded extends CrawlspaceError {
+    constructor(message: string, response: any) {
+        super(message, response)
+    }
+}
+
 export class CrawlspaceAuthenticationError extends CrawlspaceError {
     constructor(message: string, response: any) {
         super(message, response)
@@ -19,6 +25,12 @@ export class CrawlspaceAuthenticationError extends CrawlspaceError {
 }
 
 export class CrawlspaceInternalServerError extends CrawlspaceError {
+    constructor(message: string, response: any) {
+        super(message, response)
+    }
+}
+
+export class CrawlspaceFailureError extends CrawlspaceError {
     constructor(message: string, response: any) {
         super(message, response)
     }
