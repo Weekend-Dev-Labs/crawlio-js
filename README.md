@@ -1,235 +1,171 @@
-# `lancer-express-sdk`
+# 🕷️ Crawlio JS SDK
 
-**Lancer Server SDK for Express.js**
-
----
-
-## **Overview**
-
-`lancer-express-sdk` is the official server-side SDK for integrating **Lancer** with Express.js applications. It simplifies handling **Lancer webhooks** and **authentication workflows**, ensuring secure and efficient communication between your Express.js backend and Lancer's APIs.
+**crawlio-js** is a Node.js SDK for interacting with the Crawlio web scraping and crawling API. It provides programmatic access to scraping, crawling, and batch processing endpoints with built-in error handling.
 
 ---
 
-## **Features**
-
-- **Webhook Handling**: Securely process and verify Lancer webhook events.
-- **Authentication Flows**: Authenticate Lancer sessions and manage custom session logic.
-- **Express Compatibility**: Designed for use with Express.js middleware.
-
----
-
-## **Installation**
-
-Install the SDK via npm:
+## 📦 Installation
 
 ```bash
-npm install lancer-express-sdk
+npm install crawlio-js
 ```
 
 ---
 
-## **Getting Started**
+## 🚀 Getting Started
 
-### **1. Initialize the Lancer SDK**
+```ts
+import Crawlio from 'crawlio-js'
 
-Create a reusable instance of the `lancer` function with your `signingSecret` for signature verification. Store this in a shared module for easy access across your API routes.
+const client = new Crawlio({ apiKey: 'your-api-key' })
 
-```typescript
-import lancer from "lancer-express-sdk";
-
-const lancerInstance = lancer({
-  signingSecret: "<your-lancer-signing-secret>",
-});
-
-export default lancerInstance;
+const result = await client.scrape({ url: 'https://example.com' })
+console.log(result.html)
 ```
-
-| Parameter       | Type     | Required | Description                                     |
-|-----------------|----------|----------|-------------------------------------------------|
-| `signingSecret` | `string` | Yes      | Secret key used to verify webhook signatures.  |
 
 ---
 
-### **2. Set Up API Routes**
+## 🔧 Constructor
 
-#### **Authentication Middleware**
+### `new Crawlio(options: CrawlioOptions)`
 
-Use the `auth` method to handle session authentication in an Express.js route. Implement your custom logic within the handler.
+Creates a new Crawlio client.
 
-```typescript
-import express from "express";
-import lancerInstance from "@/lib/lancer";
+**Options:**
 
-const router = express.Router();
+| Name    | Type     | Required | Description                                     |
+| ------- | -------- | -------- | ----------------------------------------------- |
+| apiKey  | `string` | ✅        | Your Crawlio API key                            |
+| baseUrl | `string` | ❌        | API base URL (default: `https://crawlio.xyz`) |
 
-router.post(
-  "/auth",
-  lancerInstance.auth(async ({ token, session }) => {
-    console.log("Session Payload:", session);
-    
-    // Custom authentication logic
-    return {
-      ownerId: "<user-id>", // Replace with actual user/owner ID
-      status: 200, // HTTP status code
-    };
-  })
-);
+---
 
-export default router;
+## 📘 API Methods
+
+### `scrape(options: ScrapeOptions): Promise<ScrapeResponse>`
+
+Scrapes a single page.
+
+```ts
+await client.scrape({ url: 'https://example.com' })
 ```
 
-| Parameter    | Type                     | Description                                    |
-|--------------|--------------------------|------------------------------------------------|
-| `token`      | `string`                 | Lancer session token from the `Authorization` header. |
-| `session`    | `SessionRequest`         | Payload containing session details from Lancer. |
+**ScrapeOptions:**
 
-##### Example Request
-```bash
-POST /auth
-Authorization: Bearer <token>
+| Name        | Type       | Required | Description                |
+| ----------- | ---------- | -------- | -------------------------- |
+| url         | `string`   | ✅        | Target URL                 |
+| exclude     | `string[]` | ❌        | CSS selectors to exclude   |
+| includeOnly | `string[]` | ❌        | CSS selectors to include   |
+| markdown    | `boolean`  | ❌        | Convert HTML to Markdown   |
+| returnUrls  | `boolean`  | ❌        | Return all discovered URLs |
+
+---
+
+### `crawl(options: CrawlOptions): Promise<CrawlResponse>`
+
+Initiates a site-wide crawl.
+
+**CrawlOptions:**
+
+| Name        | Type       | Required | Description                |
+| ----------- | ---------- | -------- | -------------------------- |
+| url         | `string`   | ✅        | Root URL to crawl          |
+| count       | `number`   | ✅        | Number of pages to crawl   |
+| sameSite    | `boolean`  | ❌        | Limit crawl to same domain |
+| patterns    | `string[]` | ❌        | URL patterns to match      |
+| exclude     | `string[]` | ❌        | CSS selectors to exclude   |
+| includeOnly | `string[]` | ❌        | CSS selectors to include   |
+
+---
+
+### `crawlStatus(id: string): Promise<CrawlStatusResponse>`
+
+Checks the status of a crawl job.
+
+---
+
+### `crawlResults(id: string): Promise<{ results: ScrapeResponse[] }>`
+
+Gets results from a completed crawl.
+
+---
+
+### `search(query: string, options?: SearchOptions): Promise<SearchResponse>`
+
+Performs a search on scraped content.
+
+**SearchOptions:**
+
+| Name | Type     | Description                       |
+| ---- | -------- | --------------------------------- |
+| site | `string` | Limit search to a specific domain |
+
+---
+
+### `batchScrape(options: BatchScrapeOptions): Promise<BatchScrapeResponse>`
+
+Initiates scraping for multiple URLs in one request.
+
+**BatchScrapeOptions:**
+
+| Name    | Type                         | Description                 |
+| ------- | ---------------------------- | --------------------------- |
+| url     | `string[]`                   | List of URLs                |
+| options | `Omit<ScrapeOptions, 'url'>` | Common options for all URLs |
+
+---
+
+### `batchScrapeStatus(batchId: string): Promise<BatchScrapeStatusResponse>`
+
+Checks the status of a batch scrape job.
+
+---
+
+### `batchScrapeResult(batchId: string): Promise<{ results: { id: string; result: ScrapeResponse } }>`
+
+Fetches results from a completed batch scrape.
+
+---
+
+## 🛑 Error Handling
+
+All Crawlio errors extend from `CrawlioError`. You can catch and inspect these for more context.
+
+### Error Types:
+
+* `CrawlioError`
+* `CrawlioRateLimit`
+* `CrawlioLimitExceeded`
+* `CrawlioAuthenticationError`
+* `CrawlioInternalServerError`
+* `CrawlioFailureError`
+
+---
+
+## 📄 Types
+
+### `ScrapeResponse`
+
+```ts
 {
-  "sessionId": "abc123"
+  jobId: string
+  html: string
+  markdown: string
+  meta: Record<string, string>
+  urls?: string[]
+  url: string
 }
 ```
 
-##### Example Response
-```json
+### `CrawlStatusResponse`
+
+```ts
 {
-  "ownerId": "user123"
+  id: string
+  status: 'IN_QUEUE' | 'RUNNING' | 'LIMIT_EXCEEDED' | 'ERROR' | 'SUCCESS'
+  error: number
+  success: number
+  total: number
 }
 ```
-
----
-
-#### **Webhook Middleware**
-
-Handle webhook events sent by Lancer with the `webhook` method. Enable verification to ensure payload integrity using your `signingSecret`.
-
-```typescript
-import express from "express";
-import lancerInstance from "@/lib/lancer";
-
-const router = express.Router();
-
-router.post(
-  "/webhook",
-  lancerInstance.webhook(async ({ event, payload }) => {
-    console.log("Webhook Event:", event);
-    
-    // Handle event data
-    return true;
-  }, true)
-);
-
-export default router;
-```
-
-| Parameter       | Type                                              | Description                                                   |
-|-----------------|---------------------------------------------------|---------------------------------------------------------------|
-| `handler`       | `(event: WebhookEvent) => Promise<boolean>`       | Callback function to process webhook events.                 |
-| `verification`  | `boolean`                                         | Enables payload verification (default: `true`).              |
-
-##### Verification Workflow
-- The SDK verifies the `x-timestamp` and `x-signature` headers.
-- The payload is signed using HMAC SHA-256 and compared to the provided signature.
-- If the verification fails, the SDK responds with `400 Bad Request`.
-
-##### Example Webhook Payload
-```json
-{
-  "id": "evt_123",
-  "type": "file.uploaded",
-  "payload": {
-    "fileId": "file_abc",
-    "userId": "user123"
-  }
-}
-```
-
-##### Example Response
-```json
-{
-  "status": 200,
-  "message": "Webhook processed successfully"
-}
-```
-
----
-
-### **3. Directory Structure**
-
-Organize your Express.js project for modularity:
-
-```plaintext
-/lib/
-  lancer.js     # Lancer SDK instance
-/routes/
-  auth.js       # Authentication route
-  webhook.js    # Webhook route
-```
-
----
-
-## **API Reference**
-
-### **Function: `lancer`**
-
-#### Constructor
-```typescript
-lancer({ signingSecret: string });
-```
-
-#### Methods
-
-1. **`auth(handler: Function): Middleware`**
-   - Handles session authentication using custom logic.
-   - **Parameters**:
-     - `handler({ token, session }): Promise<{ ownerId: string; status: number }>`
-
-2. **`webhook(handler: Function, verification?: boolean): Middleware`**
-   - Processes Lancer webhook events.
-   - **Parameters**:
-     - `handler({ event, payload }): Promise<boolean>`
-     - `verification (optional): boolean`
-
----
-
-## **Types**
-
-### `SessionAuthGrant`
-```typescript
-interface SessionAuthGrant {
-  ownerId: string;
-  status: number;
-}
-```
-
-### `WebhookEvent`
-```typescript
-type WebhookEvent<T> = {
-  type: string;
-  payload: T;
-};
-```
-
-### `SessionRequest`
-```typescript
-interface SessionRequest {
-  sessionId: string;
-  [key: string]: any;
-}
-```
-
----
-
-## **Security Best Practices**
-
-1. **Protect Your Signing Secret**: Ensure your `signingSecret` is stored securely in environment variables.
-2. **Verify Signatures**: Always enable `verification` for sensitive webhook endpoints.
-3. **Rate Limit Your API**: Use rate-limiting middleware to prevent abuse.
-
----
-
-## **License**
-
-MIT License © 2025 Weekend Dev Labs

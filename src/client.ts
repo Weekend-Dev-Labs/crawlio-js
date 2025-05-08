@@ -1,26 +1,26 @@
-import { CrawlspaceError } from './errors'
+import { CrawlioError } from './errors.js'
 import type {
     BatchScrapeOptions,
     BatchScrapeResponse,
     BatchScrapeStatusResponse,
     CrawlOptions,
     CrawlResponse,
-    CrawlspaceOptions,
+    CrawlioOptions,
     CrawlStatusResponse,
     ScrapeOptions,
     ScrapeResponse,
     SearchOptions,
     SearchResponse,
-} from './types'
-import { processStatus } from './utils'
+} from './types.js'
+import { processStatus } from './utils.js'
 
-class Crawlspace {
+class Crawlio {
     #baseUrl: string
     #apiKey: string
-    constructor({ apiKey, baseUrl }: CrawlspaceOptions) {
+    constructor({ apiKey, baseUrl }: CrawlioOptions) {
         if (!apiKey) {
-            throw new CrawlspaceError(
-                'apiKey is missing. Please provide apiKey to initiate a Crawlspace client',
+            throw new CrawlioError(
+                'apiKey is missing. Please provide apiKey to initiate a Crawlio client',
                 {},
             )
         }
@@ -104,4 +104,4 @@ class Crawlspace {
     }
 }
 
-export default Crawlspace
+export default Crawlio

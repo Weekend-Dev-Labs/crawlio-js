@@ -1,12 +1,12 @@
 {
-    "name": "crawlspace.js",
-    "description": "Crawlspace offical javascript sdk",
+    "name": "crawlio.js",
+    "description": "Crawlio offical javascript sdk",
     "version": "1.0.0",
     "license": "MIT",
     "main": "./dist/index.js",
     "type": "module",
-    "homepage": "https://github.com/Weekend-Dev-Labs/crawlspace-js#readme",
-    "bugs": "https://github.com/Weekend-Dev-Labs/crawlspace-js/issues",
+    "homepage": "https://github.com/Weekend-Dev-Labs/crawlio-js#readme",
+    "bugs": "https://github.com/Weekend-Dev-Labs/crawlio-js/issues",
     "author": {
         "name": "Weekend Dev Labs",
         "email": "kisshan07@outlook.com",
@@ -14,7 +14,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Weekend-Dev-Labs/crawlspace-js.git"
+        "url": "https://github.com/Weekend-Dev-Labs/crawlio-js.git"
     },
     "engines": {
         "node": ">=17.8.0"

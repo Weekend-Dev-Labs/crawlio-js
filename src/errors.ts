@@ -1,4 +1,4 @@
-export class CrawlspaceError extends Error {
+export class CrawlioError extends Error {
     response: any
     constructor(message: string, response: any){
         super(message)
@@ -6,31 +6,31 @@ export class CrawlspaceError extends Error {
     }
 }
 
-export class CrawlspaceRateLimit extends CrawlspaceError {
+export class CrawlioRateLimit extends CrawlioError {
     constructor(message: string, response: any) {
         super(message, response)
     }
 }
 
-export class CrawlspaceLimitExceeded extends CrawlspaceError {
+export class CrawlioLimitExceeded extends CrawlioError {
     constructor(message: string, response: any) {
         super(message, response)
     }
 }
 
-export class CrawlspaceAuthenticationError extends CrawlspaceError {
+export class CrawlioAuthenticationError extends CrawlioError {
     constructor(message: string, response: any) {
         super(message, response)
     }
 }
 
-export class CrawlspaceInternalServerError extends CrawlspaceError {
+export class CrawlioInternalServerError extends CrawlioError {
     constructor(message: string, response: any) {
         super(message, response)
     }
 }
 
-export class CrawlspaceFailureError extends CrawlspaceError {
+export class CrawlioFailureError extends CrawlioError {
     constructor(message: string, response: any) {
         super(message, response)
     }

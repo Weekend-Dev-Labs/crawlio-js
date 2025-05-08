@@ -1,12 +1,12 @@
-import Crawlspace from './client.js'
+import Crawlio from './client.js'
 
 import {
-    CrawlspaceAuthenticationError,
-    CrawlspaceLimitExceeded,
-    CrawlspaceError,
-    CrawlspaceFailureError,
-    CrawlspaceInternalServerError,
-    CrawlspaceRateLimit,
+    CrawlioAuthenticationError,
+    CrawlioLimitExceeded,
+    CrawlioError,
+    CrawlioFailureError,
+    CrawlioInternalServerError,
+    CrawlioRateLimit,
 } from './errors.js'
 
 import {
@@ -14,7 +14,7 @@ import {
     CrawlResponse,
     CrawlStatus,
     CrawlStatusResponse,
-    CrawlspaceOptions,
+    CrawlioOptions,
     ScrapeOptions,
     ScrapeResponse,
     SearchItem,
@@ -27,7 +27,7 @@ export {
     CrawlResponse,
     CrawlStatus,
     CrawlStatusResponse,
-    CrawlspaceOptions,
+    CrawlioOptions,
     ScrapeOptions,
     ScrapeResponse,
     SearchItem,
@@ -36,12 +36,12 @@ export {
 }
 
 export {
-    CrawlspaceAuthenticationError,
-    CrawlspaceError,
-    CrawlspaceFailureError,
-    CrawlspaceInternalServerError,
-    CrawlspaceRateLimit,
-    CrawlspaceLimitExceeded,
+    CrawlioAuthenticationError,
+    CrawlioError,
+    CrawlioFailureError,
+    CrawlioInternalServerError,
+    CrawlioRateLimit,
+    CrawlioLimitExceeded,
 }
 
-export { Crawlspace }
+export { Crawlio }

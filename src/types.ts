@@ -5,7 +5,7 @@ export type CrawlStatus =
     | 'ERROR'
     | 'SUCCESS'
 
-export interface CrawlspaceOptions {
+export interface CrawlioOptions {
     baseUrl?: string
     apiKey: string
 }

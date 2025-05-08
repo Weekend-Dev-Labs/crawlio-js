@@ -1,8 +1,3 @@
-/*
- *  ESLint run control for rupa project.
- *  Created On 13 July 2021
- */
-
 module.exports = {
     parser: '@typescript-eslint/parser',
     plugins: ['prettier', 'simple-import-sort', '@typescript-eslint', 'import'],
