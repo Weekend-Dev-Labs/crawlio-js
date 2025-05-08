@@ -25,7 +25,7 @@ class Crawlio {
             )
         }
 
-        this.#baseUrl = baseUrl || 'http://localhost:3000'
+        this.#baseUrl = baseUrl || 'https://crawlio.xyz'
         this.#apiKey = apiKey
     }
 
