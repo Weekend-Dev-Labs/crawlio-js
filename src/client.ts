@@ -11,6 +11,7 @@ import type {
     ScrapeResponse,
     SearchOptions,
     SearchResponse,
+    CrawlResultResponse,
 } from './types.js'
 import { processStatus } from './utils.js'
 
@@ -29,8 +30,8 @@ class Crawlio {
         this.#apiKey = apiKey
     }
 
-    async #request<T>(endpoint: string, options: RequestInit): Promise<T> {
-        const res = await fetch(this.#baseUrl + endpoint, {
+    async #request<T>(endpoint: string, options: RequestInit, isFullUrl?: boolean): Promise<T> {
+        const res = await fetch(isFullUrl ? endpoint : this.#baseUrl + endpoint, {
             ...options,
             headers: {
                 authorization: `Bearer ${this.#apiKey}`,
@@ -64,12 +65,12 @@ class Crawlio {
         })
     }
 
-    async crawlResults(id: string) {
-        return this.#request<{ results: ScrapeResponse[] }>(
-            `/api/crawl/${id}`,
+    async crawlResults(id: string, next?: string) {
+        return this.#request<CrawlResultResponse>(
+            next || `/api/crawl/${id}`,
             {
                 method: 'GET',
-            },
+            }, !!next
         )
     }
 
@@ -96,10 +97,11 @@ class Crawlio {
         )
     }
 
-    async batchScrapeResult(batchId: string) {
-        return this.#request<BatchScrapeResponse>(
-            `/api/scrape/batch/${batchId}`,
+    async batchScrapeResult(batchId: string, next?: string) {
+        return this.#request<BatchScrapeStatusResponse>(
+            next || `/api/scrape/batch/${batchId}`,
             { method: 'GET' },
+            !!next,
         )
     }
 }

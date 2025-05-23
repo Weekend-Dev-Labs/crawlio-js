@@ -1,7 +1,7 @@
 {
     "name": "crawlio.js",
     "description": "Crawlio offical javascript sdk",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "main": "./dist/index.js",
     "type": "module",

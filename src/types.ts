@@ -5,6 +5,8 @@ export type CrawlStatus =
     | 'ERROR'
     | 'SUCCESS'
 
+export type WorkflowType = 'scroll' | 'click' | 'wait' | 'eval' | 'screenshot'
+
 export interface CrawlioOptions {
     baseUrl?: string
     apiKey: string
@@ -16,6 +18,7 @@ export interface ScrapeOptions {
     includeOnly?: string[]
     markdown?: boolean
     returnUrls?: boolean
+    workflow?: Workflow[]
 }
 
 export interface CrawlOptions {
@@ -36,6 +39,11 @@ export interface BatchScrapeOptions {
     options: Omit<ScrapeOptions, 'url'>
 }
 
+export interface EvaluationResult {
+    result?: string
+    error?: string
+}
+
 export interface ScrapeResponse {
     jobId: string
     html: string
@@ -43,6 +51,16 @@ export interface ScrapeResponse {
     meta: Record<string, string>
     urls?: string[]
     url: string
+    evaluation?: Record<string, EvaluationResult>
+    image: Record<string, string>
+}
+
+export interface Workflow {
+    type: WorkflowType
+    selector?: string
+    script?: string
+    duration?: number
+    id?: string
 }
 
 export interface CrawlResponse {
@@ -54,6 +72,16 @@ export interface CrawlStatusResponse {
     status: CrawlStatus
     error: number
     success: number
+    total: number
+}
+
+export interface CrawlResultResponse {
+    id: string
+    results: {
+        id: string
+        result: ScrapeResponse
+    }[]
+    next?: string
     total: number
 }
 
@@ -79,6 +107,14 @@ export interface BatchScrapeStatusResponse {
     success: number
 }
 
-export interface BatchScrapeResponse {
-    results: { id: string; result: ScrapeResponse }
+export interface BatchScrapeResultResponse {
+    id: string
+    results: BatchScrapeResult[]
+    next?: string
+    total: number
+}
+
+export interface BatchScrapeResult {
+    id: string
+    result: ScrapeResponse
 }

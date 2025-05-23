@@ -20,6 +20,15 @@ import {
     SearchItem,
     SearchOptions,
     SearchResponse,
+    BatchScrapeStatusResponse,
+    BatchScrapeOptions,
+    BatchScrapeResponse,
+    BatchScrapeResult, 
+    BatchScrapeResultResponse, 
+    CrawlResultResponse,
+    EvaluationResult,
+    Workflow, 
+    WorkflowType
 } from './types.js'
 
 export {
@@ -33,6 +42,15 @@ export {
     SearchItem,
     SearchOptions,
     SearchResponse,
+    BatchScrapeStatusResponse,
+    BatchScrapeOptions,
+    BatchScrapeResponse,
+    BatchScrapeResult,
+    BatchScrapeResultResponse,
+    CrawlResultResponse,
+    EvaluationResult,
+    Workflow,
+    WorkflowType,
 }
 
 export {
