@@ -9,7 +9,7 @@
 ## 📦 Installation
 
 ```bash
-npm install crawlio-js
+npm install crawlio.js
 ```
 
 ---
@@ -17,7 +17,7 @@ npm install crawlio-js
 ## 🚀 Getting Started
 
 ```ts
-import Crawlio from 'crawlio-js'
+import Crawlio from 'crawlio.js'
 
 const client = new Crawlio({ apiKey: 'your-api-key' })
 
