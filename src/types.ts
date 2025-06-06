@@ -53,7 +53,7 @@ export interface ScrapeResponse {
     urls?: string[]
     url: string
     evaluation?: Record<string, EvaluationResult>
-    image: Record<string, string>
+    screenshots?: Record<string, string>
 }
 
 export interface Workflow {
@@ -93,7 +93,7 @@ export interface SearchItem {
 }
 
 export interface SearchResponse {
-    id: string
+    jobId: string
     results: SearchItem[]
 }
 
