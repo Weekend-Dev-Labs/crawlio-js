@@ -19,6 +19,7 @@ export interface ScrapeOptions {
     markdown?: boolean
     returnUrls?: boolean
     workflow?: Workflow[]
+    normalizeBase64?: boolean
 }
 
 export interface CrawlOptions {
