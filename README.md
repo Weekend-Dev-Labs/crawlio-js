@@ -2,12 +2,14 @@
 
 **crawlio-js** is a Node.js SDK for interacting with the Crawlio web scraping and crawling API. It provides programmatic access to scraping, crawling, and batch processing endpoints with built-in error handling.
 
+[Visit Crawlio](https://crawlio.xyz)  [See Docs](https://docs.crawlio.xyz)
+
 ---
 
 ## 📦 Installation
 
 ```bash
-npm install crawlio-js
+npm install crawlio.js
 ```
 
 ---
@@ -15,7 +17,7 @@ npm install crawlio-js
 ## 🚀 Getting Started
 
 ```ts
-import Crawlio from 'crawlio-js'
+import { Crawlio } from 'crawlio.js'
 
 const client = new Crawlio({ apiKey: 'your-api-key' })
 
