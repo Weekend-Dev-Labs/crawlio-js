@@ -20,6 +20,19 @@ export interface ScrapeOptions {
     returnUrls?: boolean
     workflow?: Workflow[]
     normalizeBase64?: boolean
+    cookies?: CookiesInfo[]
+    userAgent?: string
+}
+
+export interface CookiesInfo {
+    name: string
+    value: string
+    path: string
+    expires?: number
+    httpOnly: boolean
+    secure: boolean
+    domain: string
+    sameSite: 'Strict' | 'Lax' | 'None'
 }
 
 export interface CrawlOptions {
