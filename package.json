@@ -1,11 +1,11 @@
 {
     "name": "crawlio.js",
     "description": "Crawlio offical javascript sdk",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "license": "MIT",
     "main": "./dist/index.js",
     "type": "module",
-    "homepage": "https://github.com/Weekend-Dev-Labs/crawlio-js#readme",
+    "homepage": "https://crawlio.xyz",
     "bugs": "https://github.com/Weekend-Dev-Labs/crawlio-js/issues",
     "author": {
         "name": "Weekend Dev Labs",
