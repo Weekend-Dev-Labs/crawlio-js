@@ -35,9 +35,9 @@ Creates a new Crawlio client.
 
 **Options:**
 
-| Name    | Type     | Required | Description                                     |
-| ------- | -------- | -------- | ----------------------------------------------- |
-| apiKey  | `string` | ✅        | Your Crawlio API key                            |
+| Name    | Type     | Required | Description                                   |
+| ------- | -------- | -------- | --------------------------------------------- |
+| apiKey  | `string` | ✅        | Your Crawlio API key                          |
 | baseUrl | `string` | ❌        | API base URL (default: `https://crawlio.xyz`) |
 
 ---
@@ -54,13 +54,17 @@ await client.scrape({ url: 'https://example.com' })
 
 **ScrapeOptions:**
 
-| Name        | Type       | Required | Description                |
-| ----------- | ---------- | -------- | -------------------------- |
-| url         | `string`   | ✅        | Target URL                 |
-| exclude     | `string[]` | ❌        | CSS selectors to exclude   |
-| includeOnly | `string[]` | ❌        | CSS selectors to include   |
-| markdown    | `boolean`  | ❌        | Convert HTML to Markdown   |
-| returnUrls  | `boolean`  | ❌        | Return all discovered URLs |
+| Name            | Type            | Required | Description                              |
+| --------------- | --------------- | -------- | ---------------------------------------- |
+| url             | `string`        | ✅        | Target URL                               |
+| exclude         | `string[]`      | ✅        | CSS selectors to exclude                 |
+| includeOnly     | `string[]`      | ❌        | CSS selectors to include                 |
+| markdown        | `boolean`       | ❌        | Convert HTML to Markdown                 |
+| returnUrls      | `boolean`       | ❌        | Return all discovered URLs               |
+| workflow        | `Workflow[]`    | ❌        | Custom workflow steps to execute         |
+| normalizeBase64 | `boolean`       | ❌        | Normalize base64 content                 |
+| cookies         | `CookiesInfo[]` | ❌        | Cookies to include in the request        |
+| userAgent       | `string`        | ❌        | Custom User-Agent header for the request |
 
 ---
 
@@ -171,3 +175,20 @@ All Crawlio errors extend from `CrawlioError`. You can catch and inspect these f
   total: number
 }
 ```
+
+### `CookiesInfo`
+
+```ts
+{
+  name: string
+  value: string
+  path: string
+  expires?: number
+  httpOnly: boolean
+  secure: boolean
+  domain: string
+  sameSite: 'Strict' | 'Lax' | 'None'
+}
+```
+
+---

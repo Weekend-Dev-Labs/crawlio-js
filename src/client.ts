@@ -30,15 +30,22 @@ class Crawlio {
         this.#apiKey = apiKey
     }
 
-    async #request<T>(endpoint: string, options: RequestInit, isFullUrl?: boolean): Promise<T> {
-        const res = await fetch(isFullUrl ? endpoint : this.#baseUrl + endpoint, {
-            ...options,
-            headers: {
-                authorization: `Bearer ${this.#apiKey}`,
-                'Content-Type': 'application/json',
-                ...(options.headers || {}),
+    async #request<T>(
+        endpoint: string,
+        options: RequestInit,
+        isFullUrl?: boolean,
+    ): Promise<T> {
+        const res = await fetch(
+            isFullUrl ? endpoint : this.#baseUrl + endpoint,
+            {
+                ...options,
+                headers: {
+                    authorization: `Bearer ${this.#apiKey}`,
+                    'Content-Type': 'application/json',
+                    ...(options.headers || {}),
+                },
             },
-        })
+        )
 
         const body = await res.json()
         processStatus(res.status, body)
@@ -48,7 +55,10 @@ class Crawlio {
     async scrape(options: ScrapeOptions) {
         return this.#request<ScrapeResponse>('/api/scrape', {
             method: 'POST',
-            body: JSON.stringify(options),
+            body: JSON.stringify({
+                ...options,
+                exclude: options?.exclude || [''],
+            }),
         })
     }
 
@@ -70,7 +80,8 @@ class Crawlio {
             next || `/api/crawl/${id}`,
             {
                 method: 'GET',
-            }, !!next
+            },
+            !!next,
         )
     }
 
