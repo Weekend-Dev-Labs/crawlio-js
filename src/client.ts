@@ -65,7 +65,7 @@ class Crawlio {
     async crawl(options: CrawlOptions) {
         return this.#request<CrawlResponse>('/api/crawl', {
             method: 'POST',
-            body: JSON.stringify(options),
+            body: JSON.stringify({ ...options }),
         })
     }
 

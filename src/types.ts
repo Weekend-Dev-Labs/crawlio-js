@@ -39,9 +39,12 @@ export interface CrawlOptions {
     url: string
     exclude?: string[]
     includeOnly?: string[]
+    markdown?: boolean
     sameSite?: boolean
     count: number
     patterns?: string[]
+    workflow?: Workflow[]
+    normalizeBase64?: boolean
 }
 
 export interface SearchOptions {
@@ -50,7 +53,7 @@ export interface SearchOptions {
 
 export interface BatchScrapeOptions {
     url: string[]
-    options: Omit<ScrapeOptions, 'url'>
+    options: Omit<Omit<Omit<ScrapeOptions, 'url'>, "cookies">, "userAgent">
 }
 
 export interface EvaluationResult {
